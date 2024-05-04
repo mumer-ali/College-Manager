@@ -1,0 +1,929 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+
+Screen_Manager:
+    Login_Page:
+    Admin_Panel:
+    Admin_Panel_CP:
+    Student_Section:
+    Faculty_Section:
+    Student_Update:
+    Student_Fetch:
+    Student_Insert_I:
+    Student_Insert_II:
+    Student_Delete:
+    Faculty_Update:
+    Faculty_Fetch:
+    Faculty_Insert_I:
+    Faculty_Insert_II:
+    Faculty_Delete:
+<Screen_Manager>:
+    transition: NoTransition()
+<Login_Page>:
+    name:'login_page'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            Image:
+                source:'COVER.jpg'
+        BoxLayout:
+            orientation:'vertical'
+            BoxLayout:
+                padding:35
+                orientation:'horizontal'
+                Label:
+                    text:'Enter Username'
+                    font_size: '20sp'
+                TextInput:
+                    id:username
+                    multiline:False
+                    cursor_width:2
+            BoxLayout:
+                padding:35
+                orientation:'horizontal'
+                Label:
+                    text:'Enter Password'
+                    font_size: '20sp'
+                TextInput:
+                    id:password
+                    multiline:False
+                    password:True
+                    cursor_width:2
+            BoxLayout:
+                orientation:'vertical'
+                Button:
+                    text:'Log In'
+                    size_hint: None, None 
+                    height:50
+                    width:100 
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    background_color: (1, 0, 0, 1)
+                    on_press: 
+                        root.input_user_pass(username,password)
+                Label:
+                    text:root.invalid_user_pass
+                    font_size: '20sp'
+<Admin_Panel>:
+    name:'admin_panel'
+    BoxLayout:
+        orientation:'horizontal'
+        Spinner: 
+            id:spinner_id
+            text:'MENU'
+            values:['Change Password','Logout'] 
+            on_text:root.spinner_clicked(spinner_id)
+            size_hint:None, None
+            size:150, 44
+            pos_hint:{'x': 0, 'top': 1}
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:"Student Section"
+            font_size: '20sp'
+            size_hint:None, None
+            size:200, 44
+            background_color: (1, 0, 0, 1)
+            pos_hint:{'center_x': .5, 'center_y': .6}
+            on_press: app.root.current = 'student_section'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:"Faculty Section"
+            font_size: '20sp'
+            size_hint:None, None
+            size:200, 44
+            background_color: (1, 0, 0, 1)
+            pos_hint:{'center_x': .5, 'center_y': .3}
+            on_press: app.root.current = 'faculty_section'
+<Admin_Panel_CP>:
+    name:'admin_panel_cp'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Enter Old Password'
+                font_size: '20sp'
+            TextInput:
+                password:True
+                id:old_password
+                multiline:False
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Enter New Password'
+                font_size: '20sp'
+            TextInput:
+                password:True
+                id:new_password
+                multiline:False
+                password:True
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Confirm New Password'
+                font_size: '20sp'
+            TextInput:
+                password:True
+                id:con_new_password
+                multiline:False
+                password:True
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:''
+                font_size: '20sp'
+        BoxLayout:
+            orientation:'vertical'
+            Button:
+                text:'Change Password'
+                size_hint:None, None 
+                height:50
+                width:150 
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    root.change_password(old_password,new_password,con_new_password)
+        BoxLayout:
+            Label:
+                text:root.wrong_old_new_pass
+                font_size: '20sp'
+        BoxLayout:
+            orientation:'vertical'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: app.root.current = 'admin_panel'
+<Student_Section>:
+    name:'student_section'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:'Insert'
+            size_hint:None, None 
+            height:50
+            width:150 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+            background_color: (1, 0, 0, 1)
+            on_press:app.root.current = 'student_insert_1'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:'Update'
+            size_hint:None, None 
+            height:50
+            width:150 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+            background_color: (1, 0, 0, 1)
+            on_press:app.root.current = 'student_update'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:'Fetch'
+            size_hint:None, None 
+            height:50
+            width:150 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            background_color: (1, 0, 0, 1)
+            on_press:app.root.current = 'student_fetch'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:'Delete'
+            size_hint:None, None 
+            height:50
+            width:150 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+            background_color: (1, 0, 0, 1)
+            on_press:app.root.current = 'student_delete'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:"Back"
+            font_size: '20sp'
+            size_hint:None, None 
+            height:50
+            width:100
+            background_color: (1, 0, 0, 1)
+            on_press: app.root.current = 'admin_panel'
+<Faculty_Section>:
+    name:'faculty_section'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:'Insert'
+            size_hint:None, None 
+            height:50
+            width:150 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+            background_color: (1, 0, 0, 1)
+            on_press:app.root.current = 'faculty_insert_1'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:'Update'
+            size_hint:None, None 
+            height:50
+            width:150 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+            background_color: (1, 0, 0, 1)
+            on_press:app.root.current = 'faculty_update'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:'Fetch'
+            size_hint:None, None 
+            height:50
+            width:150 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            background_color: (1, 0, 0, 1)
+            on_press:app.root.current = 'faculty_fetch'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:'Delete'
+            size_hint:None, None 
+            height:50
+            width:150 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+            background_color: (1, 0, 0, 1)
+            on_press:app.root.current = 'faculty_delete'
+    BoxLayout:
+        orientation:'horizontal'
+        Button:
+            text:"Back"
+            font_size: '20sp'
+            size_hint:None, None 
+            height:50
+            width:100
+            background_color: (1, 0, 0, 1)
+            on_press: 
+                app.root.current = 'admin_panel'
+<Student_Update>:
+    name:'student_update'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Enter the ID to update data'
+                font_size: '20sp'
+            TextInput:
+                size_hint_y:None
+                height:'30'
+                id:username_update_student
+                multiline:False
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Update the Course'
+                font_size: '20sp'
+            Spinner: 
+                id:course_update_student
+                values:['Medical','Engineering','IT','Business'] 
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Update the Section'
+                font_size: '20sp'
+            Spinner: 
+                id:section_update_student
+                values:['A','B','C']
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Update the Studying year'
+                font_size: '20sp'
+            Spinner: 
+                id:year_update_student
+                values:['1st','2nd']
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Scholarship Status'
+                font_size: '20sp'
+            GridLayout:
+                rows:1
+                Label:
+                    text:"Yes" 
+                    font_size:20
+                CheckBox:
+                    group:"O"
+                    on_active:root.student_update_1(self.active,"True")
+                Label:
+                    text:"No" 
+                    font_size:20
+                CheckBox:
+                    group:"O"
+                    active:True
+                    id:star
+                    on_active:root.student_update_1(self.active,"False")
+            Spinner:
+                disabled:star.active
+                id:scholarship_update_student
+                values:['10%','20%','50%'] 
+                size_hint:None, None
+                size:70, 35
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:root.errors_student_update
+                font_size: '20sp'
+        BoxLayout:
+            orientation:'vertical'
+            Button:
+                text:"Update"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_press: root.student_update_3(username_update_student,course_update_student,section_update_student,year_update_student,scholarship_update_student)
+        BoxLayout:
+            orientation:'horizontal'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    app.root.current = 'student_section'
+<Student_Insert_I>:
+    name:'student_insert_1'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Enter the ID'
+                font_size: '20sp'
+            TextInput:
+                id:id_insert_student
+                multiline:False
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Enter the Name'
+                font_size: '20sp'
+            TextInput:
+                id:name_insert_student
+                multiline:False
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Select the Gender'
+                font_size: '20sp'
+            GridLayout:
+                rows:1
+                Label:
+                    text:"Male" 
+                    font_size:20
+                CheckBox:
+                    group:"Gender"
+                    active:True
+                    on_press:root.student_insert_1_1(self.active,"Male")
+                Label:
+                    text:"Female" 
+                    font_size:20
+                CheckBox:
+                    group:"Gender"
+                    on_press:root.student_insert_1_1(self.active,"Female")
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Select the Course'
+                font_size: '20sp'
+            Spinner: 
+                id:course_insert_student
+                values:['Medical','Engineering','IT','Business'] 
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:root.errors_student_insert_1
+                font_size: '20sp'
+        BoxLayout:
+            orientation:'vertical'
+            Button:
+                text:"Next"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_press: 
+                    root.student_insert_1_3(id_insert_student,name_insert_student,course_insert_student)
+        BoxLayout:
+            orientation:'horizontal'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    app.root.current = 'student_section'
+<Student_Insert_II>:
+    name:'student_insert_2'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Select the Studying year'
+                font_size: '20sp'
+            Spinner: 
+                id:year_insert_student
+                values:['1st','2nd']
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Select the Section'
+                font_size: '20sp'
+            Spinner: 
+                id:section_insert_student
+                values:['A','B','C']
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Scholarship Status'
+                font_size: '20sp'
+            GridLayout:
+                rows:1
+                Label:
+                    text:"Yes" 
+                    font_size:20
+                CheckBox:
+                    group:"A"
+                    on_active:root.student_insert_2_1(self.active,"True")
+                Label:
+                    text:"No" 
+                    font_size:20
+                CheckBox:
+                    id:stare
+                    group:"A"
+                    active:True
+                    on_active:root.student_insert_2_1(self.active,"False")
+            Spinner:
+                disabled:stare.active
+                id:scholarship_insert_student
+                values:['10%','20%','50%'] 
+                size_hint:None, None
+                size:70, 35
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Payable Fee'
+                font_size: '20sp'
+            Label:
+                text:root.payable_fee
+                font_size: '20sp'
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:root.errors_student_insert_2
+                font_size: '20sp'
+        BoxLayout:
+            orientation:'vertical'
+            Button:
+                text:"Insert"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_press: root.student_insert_2_2(year_insert_student,section_insert_student,scholarship_insert_student)
+        BoxLayout:
+            orientation:'horizontal'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    app.root.current = 'student_insert_1'
+<Student_Fetch>:
+    name:'student_fetch'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            padding:35
+            orientation:'horizontal'
+            Label:
+                text:'Enter the ID'
+                font_size: '20sp'
+            TextInput:
+                id:id_of_student_fetch
+                multiline:False
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:root.text_for_confirmation
+                font_size: '20sp'
+        BoxLayout:
+            padding:25
+            orientation:'vertical'
+            Button:
+                text:"Fetch"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                background_color: (1, 0, 0, 1)
+                on_press:root.fetch_student(id_of_student_fetch)
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:root.list_of_student_fetch
+        BoxLayout:
+            orientation:'horizontal'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    app.root.current = 'student_section'
+<Student_Delete>:
+    name:'student_delete'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:""
+        BoxLayout:
+            padding:35
+            orientation:'horizontal'
+            Label:
+                text:'Enter the ID'
+                font_size: '20sp'
+            TextInput:
+                id:id_of_student_deletion
+                multiline:False
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:root.text_for_confirmation
+                font_size: '20sp'
+        BoxLayout:
+            padding:25
+            orientation:'vertical'
+            Button:
+                text:"Delete"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                background_color: (1, 0, 0, 1)
+                on_press:root.delete_student(id_of_student_deletion)
+        BoxLayout:
+            orientation:'horizontal'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    app.root.current = 'student_section'
+<Faculty_Update>:
+    name:'faculty_update'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Update the Subject'
+                font_size: '20sp'
+            Spinner: 
+                id:subject_update_faculty
+                values:['A','B','C','D'] 
+                #on_text:root.spinner_clicked(spinner_id)
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Update the Sections'
+                font_size: '20sp'
+            Spinner: 
+                id:section_update_faculty
+                values:['A','B','C','D'] 
+                #on_text:root.spinner_clicked(spinner_id)
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Pay'
+                font_size: '20sp'
+            Label:
+                text:''
+                font_size: '20sp'
+        BoxLayout:
+            orientation:'vertical'
+            Button:
+                text:"Update"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_press: 
+                    #app.root.current = 'faculty_insert_2'
+        BoxLayout:
+            orientation:'horizontal'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    app.root.current = 'faculty_section'
+<Faculty_Insert_I>:
+    name:'faculty_insert_1'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Enter the ID'
+                font_size: '20sp'
+            TextInput:
+                id:id_insert_faculty
+                multiline:False
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Enter the Name'
+                font_size: '20sp'
+            TextInput:
+                id:name_insert_faculty
+                multiline:False
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Select the Subject'
+                font_size: '20sp'
+            Spinner: 
+                id:subject_insert_faculty
+                values:root.subs
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Select the Gender'
+                font_size: '20sp'
+            GridLayout:
+                rows:1
+                Label:
+                    text:"Male" 
+                    font_size:20
+                CheckBox:
+                    group:"fac"
+                    active:True
+                    on_press:root.faculty_insert_1_1(self.active,"Male")
+                Label:
+                    text:"Female" 
+                    font_size:20
+                CheckBox:
+                    group:"fac"
+                    on_press:root.faculty_insert_1_1(self.active,"Female")
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:root.errors_faculty_insert_1
+                font_size: '20sp'
+        BoxLayout:
+            orientation:'vertical'
+            Button:
+                text:"Next"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_press: root.faculty_insert_1_2(id_insert_faculty,name_insert_faculty,subject_insert_faculty) 
+        BoxLayout:
+            orientation:'horizontal'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    app.root.current = 'faculty_section'
+<Faculty_Insert_II>:
+    name:'faculty_insert_2'
+    BoxLayout:
+        orientation:'vertical'
+        # BoxLayout:
+        #     padding:25
+        #     orientation:'horizontal'
+        #     Label:
+        #         text:'Select the Sections'
+        #         font_size: '20sp'
+        #     GridLayout:
+        #         cols:2
+        #         Label:
+        #             text:"A" 
+        #             font_size:20
+        #         CheckBox:
+        #             # on_active:root.checkbox_click(self,"A")
+        #         Label:
+        #             text:"B" 
+        #             font_size:20
+        #         CheckBox:
+        #             # on_active:root.checkbox_click(self,"B")
+        #         Label:
+        #             text:"C"
+        #             font_size:20 
+        #         CheckBox:
+                    # on_active:root.checkbox_click(self,"C")
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:'Pay'
+                font_size: '20sp'
+            Label:
+                text:''
+                font_size: '20sp'
+        BoxLayout:
+            orientation:'vertical'
+            Button:
+                text:"Insert"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_press: 
+                    #app.root.current = 'student_section'
+        BoxLayout:
+            orientation:'horizontal'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    app.root.current = 'faculty_insert_1'
+<Faculty_Fetch>:
+    name:'faculty_fetch'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            padding:35
+            orientation:'horizontal'
+            Label:
+                text:'Enter the ID'
+                font_size: '20sp'
+            TextInput:
+                id:id_of_faculty_fetch
+                multiline:False
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:root.text_for_confirmation
+                font_size: '20sp'
+        BoxLayout:
+            padding:25
+            orientation:'vertical'
+            Button:
+                text:"Fetch"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                background_color: (1, 0, 0, 1)
+                on_press:root.fetch_faculty(id_of_faculty_fetch)
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:root.list_of_faculty_fetch
+        BoxLayout:
+            orientation:'horizontal'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    app.root.current = 'faculty_section'
+<Faculty_Delete>:
+    name:'faculty_delete'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:""
+        BoxLayout:
+            padding:35
+            orientation:'horizontal'
+            Label:
+                text:'Enter the ID'
+                font_size: '20sp'
+            TextInput:
+                id:id_of_faculty_deletion
+                multiline:False
+                cursor_width:2
+        BoxLayout:
+            padding:25
+            orientation:'horizontal'
+            Label:
+                text:root.text_for_confirmation
+                font_size: '20sp'
+        BoxLayout:
+            padding:25
+            orientation:'vertical'
+            Button:
+                text:"Delete"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                background_color: (1, 0, 0, 1)
+                on_press:root.delete_faculty(id_of_faculty_deletion)
+        BoxLayout:
+            orientation:'horizontal'
+            Button:
+                text:"Back"
+                font_size: '20sp'
+                size_hint:None, None 
+                height:50
+                width:100
+                background_color: (1, 0, 0, 1)
+                on_press: 
+                    app.root.current = 'faculty_section'
